@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: vacations
+  name: jenkins-log-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/kuber-storage/vacations/jenkins-log"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: vacations
+  name: jenkins-data-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/kuber-storage/vacations/jenkins-data"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: vacations
+  name: jenkins-log-pv-volume
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: vacations
+  name: jenkins-data-pv-volume
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: vacations
+  name: postgres-data-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/kuber-storage/vacations/postgres-data"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: vacations
+  name: postgres-data-pv-volume
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
